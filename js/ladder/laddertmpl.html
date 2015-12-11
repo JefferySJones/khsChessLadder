@@ -1,0 +1,99 @@
+<div class="container">
+	<div class="row">
+		<div ng-repeat="player in players | orderBy:'ranking'" class="animate">
+			<div class="col-md-3 col-sm-4 col-xs-12" ng-show="{{player.ladder}} && !show">
+				<div class="box">
+					<!-- Clear Div For Clicking -->
+					<div class="hitbox" ng-click="selectActivePlayer(player)"></div>
+
+					<!-- Hide Box Button -->
+					<div class="boxX" ng-click="show = !show; hideButton(player);" ng-show="showX">&#10005;</div>
+					<!--show = !show; player.ladder = '0'; players.$save(player);-->
+					<!-- Top Bar -->
+					<div class="boxHead" ng-hide="player.active">{{player.name}}</div>
+					<div class="boxHead2" ng-show="player.active">{{player.name}}</div>
+
+					<!-- Avatar -->
+					<div class="avatar" style="background-image: url('images/{{player.image}}.jpg');" ng-click="selectActivePlayer(player)"></div>
+					<div class="whiteOutline" ng-show="player.active == 1"></div>
+					<div class="blackOutline" ng-show="player.active == 2"></div>
+
+					<!-- Text -->
+					<div class="info">
+						Grade: {{player.grade}}
+						<br /> Rank: {{player.ranking}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="gameReporter" ng-show="gameReporter">
+	<div class="halfGameReport">
+		<div class="playerBlock">
+			<h3>White</h3>
+			<div style="background-image: url('images/{{playerOne.image}}.jpg');" class="player white"></div>
+			{{playerOne.name}}
+		</div>
+	</div>
+	<div class="halfGameReport">
+		<div class="playerBlock">
+			<h3>Black</h3>
+			<div style="background-image: url('images/{{playerTwo.image}}.jpg');" class="player black"></div>
+			{{playerTwo.name}}
+		</div>
+	</div>
+	<div id="gameOpts">
+		<button class="gameOpt" ng-click="submitGame(playerOne, playerTwo, 'white')">White</button>
+		<button class="gameOpt" ng-click="submitGame(playerOne, playerTwo, 'black')">Black</button>
+		<button class="gameOpt" ng-click="submitGame(playerOne, playerTwo)">Draw</button>
+		<button class="gameOpt" ng-click="swapActivePlayers()">Swap</button>
+	</div>
+	<div class="boxX" ng-click="toggleGR()">&#10005;</div>
+</div>
+
+<div id="footer" ng-if="showFooter" ng-click="toggleFooter()">
+	<h5>Ladder Rules:</h5>
+	<p>Initial positions on the ladder are determined randomly. New members of the Club are added to the bottom of the ladder.</p>
+	<p>You may challenge anyone who is up to four spots above you on the ladder. If you are challenged to a ladder game, and you
+		are not already in a game, and if there are at least 30 minutes available to play, you MUST play. (a refusal to play is
+		treated as a loss)</p>
+	<p>The higher ranked player plays Black. The lower ranked player plays White.</p>
+	<p>If the lower-ranked player wins, the lower-ranked player takes the higher-ranked player's spot on the ladder, and the higher
+		ranked player moves down one spot.</p>
+	<p>If the higher-ranked player wins, there is no change in the players’ rankings.</p>
+	<p>If the game ends in a draw, the lower-ranked player takes the spot just below the higher-ranked player. Draws by agreement
+		must be approved by a coach.</p>
+	<p>After a ladder game is played, at least one of the players must play a ladder game against someone else before they are
+		allowed to play each other again.</p>
+	<p>NOTE: If you do not want to be a part of the ladder, or do not want to have your picture on it, let us know!</p>
+</div>
+
+<div class="loginForm" ng-show="showL">
+	<form ng-submit="login(); showL = false;">
+		<input id="loginField" type="username" ng-model="username" placeholder="username"/>
+		<br />
+		<input type="password" ng-model="password" placeholder="password" />
+		<br />
+		<br />
+		<button type="reset" ng-click="showL = !showL">Cancel</button>
+		<button type="submit">Log In</button>
+	</form>
+</div>
+
+<div id="controls">
+	<div class="square-button" ng-if="!showFooter" ng-click="toggleFooter()">
+		<h5>&#9873;<!-- Flag --></h5> </div>
+	<div class="square-button" ng-if="!auth" ng-click="toggleLogin();">&#128272;</div>
+	<div class="square-button" ng-if="auth" ng-click="logout();">&#128275;</div>
+	<div class="square-button" ng-if="auth" ng-click="toggleGR()">
+		<h5>&#9822;<!-- Horse --></h5></div>
+	<!--<div class="square-button" ng-if="auth" ng-click="showAll()">-->
+		<!--<h5>&#9744; Square </h5></div>-->
+	<!--<div class="square-button" ng-click="showX = !showX" ng-hide="showX || !auth">-->
+		<!--<h5>&#10005; X </h5></div>-->
+	<!--<div class="square-button" ng-click="showX = !showX; updateLadder(false)" ng-show="showX">-->
+		<!--<h5>&#10003; Check </h5></div>-->
+
+</div>

@@ -1,0 +1,72 @@
+<div class="container">
+	<select ng-model="selectBox" style="margin-bottom: 10px;" autofocus>
+		<option ng-repeat="player in players | orderBy:'name'" value="{{player}}">{{player.name}}</option>
+	</select>
+
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12" ng-hide="player.show">
+			<div class="box2 clearfix">
+				<div class="boxHead" style="height: 105px; line-height: 105px; font-size: 0.8em;">Please select a member with the drop-down above.</div>
+			</div>
+		</div>
+
+		<div class="col-md-12 col-sm-12 col-xs-12" ng-show="player.show">
+			<div class="box2 clearfix">
+
+				<div class="avatar" style="background-image: url('images/{{player.image}}.jpg'); "></div>
+
+				<!-- Top Bar -->
+				<div class="boxHead" style="height: 105px; line-height: 105px; font-size: 1.2em;">{{player.name}}</div>
+
+				<!-- Avatar -->
+
+				<!-- Text -->
+				<div class="info" style="font-size: .9em; line-height: 1.5em;">
+					<span style="font-size: 1.2em; line-height: 2.5em;">Stats</span>
+					<br /> Grade: {{player.grade}}
+					<span ng-if="player.ranking != 999999">
+						<br /> Rank: {{player.ranking}}
+						<br /> Win Percentage: <span ng-if="player.wins > 0 || player.losses > 0">{{((player.wins / (player.losses + player.wins + player.draws)) * 100) | number:0 }}%</span>
+						<span ng-if="player.wins == 0 && player.losses == 0">No games available.</span>
+						<br /> Wins: {{player.wins}}
+						<br /> Losses: {{player.losses}}
+						<br /> Draws: {{player.draws}}
+						<br />
+						<br /> <span style="font-size: 1.2em; line-height: 2.5em;">Game History</span>
+						<div class="sec-container" style="text-align: center;">
+							<div class="row" style="background-color: #0E9055; color: #fff; margin-bottom: 5px;  padding-left: 0;">
+								<div class="col-xs-12">
+									<div class="col-sm-3 col-xs-6">Against</div>
+									<div class="col-sm-3 hidden-xs">Side</div>
+									<div class="col-sm-3 col-xs-3">Result</div>
+									<div class="col-sm-3 col-xs-3">Date</div>
+								</div>
+							</div>
+							<div ng-repeat="game in games | filter: player.objectId | orderBy: ['-createdAt']">
+								<div class="row">
+									<div class="col-xs-12" ng-if="game.whiteID == player.objectId" ng-class-odd="'odd'" ">
+										<div class="col-sm-3 col-xs-6 ">{{game.black}}</div>
+										<div class="col-sm-3 hidden-xs ">White</div>
+										<div class="col-sm-3 col-xs-3 " ng-if="game.winner == game.black">Lost</div>
+										<div class="col-sm-3 col-xs-3 "ng-if="game.winner == game.white">Won</div>
+										<div class="col-sm-3 col-xs-3 " ng-if="game.winner=='Draw' ">Draw</div>
+										<div class="col-sm-3 col-xs-3 ">{{game.createdAt | date: "MM/dd/yy "}}</div>
+									</div>
+	
+									<div class="col-xs-12 " ng-if="game.blackID == player.objectId" ng-class-odd=" 'odd' ">
+										<div class="col-sm-3 col-xs-6 ">{{game.white}}</div>
+										<div class="col-sm-3 hidden-xs ">Black</div>
+										<div class="col-sm-3 col-xs-3 " ng-if="game.winner == game.white ">Lost</div>
+										<div class="col-sm-3 col-xs-3 " ng-if="game.winner == game.black ">Won</div>
+										<div class="col-sm-3 col-xs-3 " ng-if="game.winner=='Draw' ">Draw</div>
+										<div class="col-sm-3 col-xs-3 ">{{game.createdAt | date: "MM/dd/yy "}}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
