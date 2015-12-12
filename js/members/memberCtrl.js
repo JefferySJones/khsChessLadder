@@ -8,14 +8,8 @@ app.controller("MemberCtrl", function ($scope, fbService) {
 	
 	$scope.selectBox = '';
 	$scope.player = {};
-	
-	$scope.$watch(
-		'selectBox', function(newValue, oldValue) {
-			parse();
-		}
-	);
-	
-	var parse = function() {
+
+	$scope.parseObj = function() {
 		if ($scope.selectBox != ''){
 			$scope.player = JSON.parse($scope.selectBox);
 			$scope.player.show = true;

@@ -99,9 +99,8 @@ ul > a, ul > a:active, ul > a:hover, ul > a:focus, #home {
 .text-justify {
 	text-align: justify;
 }
-/* Common */
 
-/* Ladder */
+/* Ladder & Member */
 .box, .box2 {
 	background-color: lightgreen;
 	font-weight: bold;
@@ -215,6 +214,14 @@ ul > a, ul > a:active, ul > a:hover, ul > a:focus, #home {
 	min-width: 2.5em;
 	line-height: 2em;
 	text-align: center;
+}
+
+#errorLogin {
+	position: absolute;
+	left: 5px;
+	top: 3px;
+	font-size: .7em;
+	color: #fff;
 }
 
 #gameReporter {

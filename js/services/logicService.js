@@ -1,8 +1,14 @@
-app.service("logicService", function (parseService) {
-	/** 
-	* 
-	*/
-	this.reOrderLadder = function (winner, loser, outcome, players) {
+app.service("logicService", function () {
+
+    /**
+     * Re-arranges the players on the ladder based on win/loss/draw and who is the lower ranked player.
+     * @param {object} winner
+     * @param {object} loser
+     * @param {boolean} draw
+     * @param {object} players
+     * @returns {object} players
+     */
+    this.reOrderLadder = function (winner, loser, draw, players) {
 
 		var r1, r2;
 		if (winner.ranking < loser.ranking) {
@@ -16,8 +22,7 @@ app.service("logicService", function (parseService) {
 		var r1origRank = r1.ranking;
 		var r2origRank = r2.ranking;
 
-
-		if (outcome === 0) { //Tie
+		if (draw === true) { //Tie
 			for (var i = 0; i < players.length; i++) {
 				if (players[i].objectId === r2.objectId) {
 					r2.ranking = r1.ranking + 1;
@@ -41,7 +46,7 @@ app.service("logicService", function (parseService) {
 					players[i].changed = true;
 				}
 			}
-		} else if (outcome === 1) {
+		} else if (draw === false) {
 
 			if (winner !== r1) { 	// If the winner is not the higher rated player
 				// winner === r2		
@@ -85,36 +90,9 @@ app.service("logicService", function (parseService) {
 					}
 				}
 			}
-		} 
-		// this.updateLadder(players, false);
+		}
+
 		return players;
 	}
-	
-	
-	// /**  
-	// * Show all players on the ladder
-	// */
-	// this.updateLadder = function (players, show) {
-	// 	var batchObj = { requests: [] };
-
-	// 	players.forEach(function (player) {
-	// 		if (player.ladder === "0" && player.ranking < 99999 && show) {
-	// 			player.ladder = "1";
-	// 			console.log("Changed Ladder Value to 1");
-	// 		}
-	// 		if (player.active) {
-	// 			delete player.active;
-	// 		}
-	// 		if (batchObj.requests.length <= 50) { //CANNOT TAKE MORE THAN 50..
-	// 			batchObj.requests.push({
-	// 				method: "PUT",
-	// 				path: "https://api.parse.com/1/classes/players/" + player.objectId,
-	// 				body: { objectId: player.objectId, ladder: player.ladder, ranking: player.ranking }
-	// 			});
-	// 		}
-	// 	});
-
-	// 	return parseService.batchRequest(batchObj);
-	// }
 
 });

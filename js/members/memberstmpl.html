@@ -1,5 +1,5 @@
 <div class="container">
-	<select ng-model="selectBox" style="margin-bottom: 10px;" autofocus>
+	<select ng-model="selectBox" style="margin-bottom: 10px;" ng-change="parseObj()" autofocus>
 		<option ng-repeat="player in players | orderBy:'name'" value="{{player}}">{{player.name}}</option>
 	</select>
 

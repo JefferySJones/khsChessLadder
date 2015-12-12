@@ -1,4 +1,4 @@
-var app = angular.module('KHSChess', ['ngRoute', 'ui.bootstrap', 'firebase', 'ngAnimate']);
+var app = angular.module('KHSChess', ['ngRoute', 'firebase', 'ngAnimate']);
 
 app.constant('fb', {
       url: 'https://khschess.firebaseio.com/'
@@ -21,25 +21,16 @@ app.config(function ($routeProvider, $httpProvider) {
       templateUrl: 'js/members/memberstmpl.html',
       controller: 'MemberCtrl'
     })
-    .when('/learn', {
-      templateUrl: 'js/learn/learntmpl.html',
-      controller: 'MainCtrl'
-    })
     .otherwise({ redirectTo: '/' })
 });
 
 app.animation('.animate', [function() {
   return {
-    // make note that other events (like addClass/removeClass)
-    // have different function input parameters
     enter: function(element, doneFn) {
       element.css('opacity',0);
       $(element).animate({
         opacity: 1
       }, doneFn);
-
-      // remember to call doneFn so that angular
-      // knows that the animation has concluded
     },
 
     move: function(element, doneFn) {
