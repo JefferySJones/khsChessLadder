@@ -1,9 +1,0 @@
-{
-  "firebase": "khschess",
-  "public": ".",
-  "ignore": [
-    "firebase.json",
-    "**/.*",
-    "**/node_modules/**"
-  ]
-}
